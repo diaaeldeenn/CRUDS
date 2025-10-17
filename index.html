@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--^     Font Awesome StyleSheet  -->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <!--*     Bootstrap StyleSheet     -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!--!       Main StyleSheet        -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="shortcut icon"
+      href="images/DiaaEldeen.ico"
+      type="image/x-icon"
+    />
+    <title>CRUDS</title>
+  </head>
+  <body>
+    <header class="app-header py-3">
+      <div class="container d-flex align-items-center justify-content-between flex-column flex-md-row">
+        <div class="d-flex align-items-center gap-3">
+          <div
+            class="brand-mark d-flex align-items-center justify-content-center"
+          >
+            <i class="fa-solid fa-box-open"></i>
+          </div>
+          <div>
+            <h1 class="h5 m-0 app-title">Store Management System</h1>
+            <div class="small text-muted app-sub">
+              Efficiently manage your product inventory
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
+          <button
+            id="modeBtn"
+            onclick="toggleMode()"
+            class="btn mode-btn btn-outline-dark"
+            
+          >
+            🌙 Dark Mode
+          </button>
+          <span id="counterProduct" class="badge bg-primary py-2 px-4"
+            >0 Product</span
+          >
+        </div>
+      </div>
+    </header>
+
+    <main class="container main-area my-5">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="card panel-card h-100">
+            <div class="card-body">
+              <div class="d-flex align-items-start mb-3">
+                <div
+                  class="form-icon d-flex align-items-center justify-content-center"
+                >
+                  <i class="fas fa-plus-circle"></i>
+                </div>
+                <div class="ms-3">
+                  <h5 class="mb-0">Add / Update Product</h5>
+                  <small class="text-muted"
+                    >Add new items to your inventory</small
+                  >
+                </div>
+              </div>
+
+              <form>
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <input
+                      oninput="validationInput(this,'stateNameBadge')"
+                      type="text"
+                      class="form-control form-input"
+                      id="productName"
+                      placeholder="productName"
+                    />
+                    <label for="productName"
+                      ><i class="fas fa-tag me-2"></i>Product Name</label
+                    >
+                  </div>
+                  <p id="stateNameBadge" class="d-none invalid-text">
+                    Product Name Is Invalid
+                  </p>
+                </div>
+
+                <div class="mb-3 row gx-2">
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        oninput="validationInput(this,'statePriceBadge')"
+                        type="number"
+                        class="form-control form-input"
+                        id="productPrice"
+                        placeholder="productPrice"
+                      />
+                      <label for="productPrice"
+                        ><i class="fas fa-dollar-sign me-2"></i>Product
+                        Price</label
+                      >
+                    </div>
+                    <p id="statePriceBadge" class="d-none invalid-text">
+                      Product Price Is Invalid
+                    </p>
+                  </div>
+
+                  <div class="col-auto">
+                    <div class="form-floating">
+                      <input
+                        oninput="validationInput(this,'stateCategoryBadge')"
+                        list="productCat"
+                        class="form-control form-input"
+                        id="productCategory"
+                        placeholder="productCategory"
+                      />
+                      <label for="productCategory"
+                        ><i class="fa-solid fa-border-all me-2"></i
+                        >Category</label
+                      >
+                      <datalist id="productCat">
+                        <option value="TV"></option>
+                        <option value="Laptop"></option>
+                        <option value="Mobile"></option>
+                        <option value="Accessories"></option>
+                      </datalist>
+                    </div>
+                    <p id="stateCategoryBadge" class="d-none invalid-text">
+                      Product Category Is Invalid
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <div class="input-group file-group">
+                    <span class="input-group-text file-icon me-2"
+                      ><i class="fas fa-image"></i
+                    ></span>
+                    <input
+                      type="file"
+                      onchange="validationInput(this,'stateImageBadge')"
+                      class="form-control form-input file-input"
+                      id="productImage"
+                      placeholder="productImage"
+                      accept="image/*"
+                    />
+                  </div>
+                  <p id="stateImageBadge" class="d-none invalid-text">
+                    Product Image Extension Is Invalid
+                  </p>
+                </div>
+
+                <div class="mb-3">
+                  <div class="form-floating">
+                    <textarea
+                      oninput="validationInput(this,'stateDescriptionBadge')"
+                      class="form-control form-input textarea-lg"
+                      id="productDescription"
+                      placeholder="productDescription"
+                    ></textarea>
+                    <label for="productDescription"
+                      ><i class="fas fa-credit-card me-2"></i>Product
+                      Description</label
+                    >
+                  </div>
+                  <p id="stateDescriptionBadge" class="d-none invalid-text">
+                    Product Description Is Invalid
+                  </p>
+                </div>
+
+                <div
+                  class="d-flex justify-content-center mt-5 gap-2 d-sm-flex"
+                >
+                  <div class="d-flex gap-2">
+                    <button
+                      id="addBtn"
+                      onclick="addProduct()"
+                      type="button"
+                      class="btn btn-primary me-2 action-btn"
+                    >
+                      Add Product
+                    </button>
+                    <button
+                      id="updateBtn"
+                      onclick="updateProduct()"
+                      type="button"
+                      class="btn btn-warning text-white me-2 action-btn d-none"
+                    >
+                      Update Product
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      id="clearAll"
+                      onclick="deleteAll()"
+                      type="button"
+                      class="btn btn-outline-danger action-btn"
+                    >
+                      Delete All
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-column flex-md-row">
+            <div>
+              <h4 class="m-0">Product Inventory</h4>
+              <small class="text-muted">Browse, edit or remove products</small>
+            </div>
+            <div class="d-flex gap-2 align-items-center mt-2 mt-md-0">
+              <select
+                id="filterCategory"
+                onchange="filterByCategory()"
+                class="form-select form-select-sm w-auto"
+              >
+                <option value="all">All</option>
+                <option value="Mobile">Mobile</option>
+                <option value="TV">TV</option>
+                <option value="Laptop">Laptop</option>
+                <option value="Accessories">Accessories</option>
+              </select>
+              <input
+                id="search"
+                oninput="searchByName()"
+                class="form-control form-control-sm search-input"
+                placeholder="Search product by name..."
+              />
+            </div>
+          </div>
+
+          <div id="rowData" class="row g-4"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
